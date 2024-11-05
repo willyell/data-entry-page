@@ -13,27 +13,26 @@
   </form>
 
   <script>
-    document.getElementById('serviceForm').onsubmit = async function (event) {
-      event.preventDefault();
-      console.log("Form submitted.");  // Confirm event firing
-      
-      const formData = new FormData(event.target);
-      const data = Object.fromEntries(formData.entries());
+   document.getElementById('serviceForm').onsubmit = async function (event) {
+  event.preventDefault();
+  const formData = new FormData(event.target);
+  const data = Object.fromEntries(formData.entries());
+  
+  console.log("Form data:", data);  // Inspect data structure
+  
+  const response = await fetch('https://r2-resonance-15f9.will-086.workers.dev/', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
+  });
 
-      const response = await fetch('https://r2-resonance-15f9.will-086.workers.dev/', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
-      });
+  if (response.ok) {
+    alert('Data saved successfully!');
+  } else {
+    alert('Failed to save data');
+  }
+};
 
-      if (response.ok) {
-        console.log("Data saved successfully!");
-        alert('Data saved successfully!');
-      } else {
-        console.log("Failed to save data");
-        alert('Failed to save data');
-      }
-    };
   </script>
 </body>
 </html>
