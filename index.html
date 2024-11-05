@@ -8,32 +8,47 @@
 <body>
   <h1>Enter Service Details</h1>
   <form id="serviceForm">
-    <label>Service Name: <input type="text" name="serviceName" required></label>
+    <label>Service Name: <input type="text" name="serviceName" required></label><br>
+    <label>Service Description: <textarea name="serviceDescription" required></textarea></label><br>
+    <label>Service Title: <input type="text" name="serviceTitle" required></label><br>
+    <label>Service Promo: <input type="text" name="servicePromo" required></label><br>
+    <label>Price Per Day: <input type="text" name="pricePerDay" required></label><br>
+    <label>Terms Link: <input type="url" name="termsLink" required></label><br>
+    <label>Service Domain: <input type="text" name="serviceDomain" required></label><br>
+    <label>Service URL: <input type="url" name="serviceURL" required></label><br>
+    <label>Service Image URL: <input type="url" name="serviceImage" required></label><br>
+    <label>Header Image URL: <input type="url" name="headerImage" required></label><br>
+    <label>Button Color (Hex): <input type="text" name="buttonColor" required></label><br>
+    <label>Subscribe URL: <input type="url" name="subscribeURL" required></label><br>
+    <label>Exit URL: <input type="url" name="exitURL" required></label><br>
     <button type="submit">Submit</button>
   </form>
 
   <script>
-   document.getElementById('serviceForm').onsubmit = async function (event) {
-  event.preventDefault();
-  const formData = new FormData(event.target);
-  const data = Object.fromEntries(formData.entries());
-  
-  console.log("Form data:", data);  // Inspect data structure
-  
-  const response = await fetch('https://r2-resonance-15f9.will-086.workers.dev/', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(data),
-  });
+    document.getElementById('serviceForm').onsubmit = async function (event) {
+      event.preventDefault();
+      
+      // Collect all form data into an object
+      const formData = new FormData(event.target);
+      const data = Object.fromEntries(formData.entries());
 
-  if (response.ok) {
-    alert('Data saved successfully!');
-  } else {
-    alert('Failed to save data');
-  }
-};
+      console.log("Collected form data:", data);  // Log all data to verify it's complete
 
+      // Send data to Worker
+      const response = await fetch('https://r2-resonance-15f9.will-086.workers.dev/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+
+      if (response.ok) {
+        alert('Data saved successfully!');
+      } else {
+        alert('Failed to save data');
+      }
+    };
   </script>
 </body>
 </html>
+
 
